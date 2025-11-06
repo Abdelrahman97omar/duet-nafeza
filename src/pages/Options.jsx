@@ -71,7 +71,7 @@ const Options = () => {
       <audio src={sound} ref={audioRef2} />
       <button
         onClick={() => navigate("/")}
-        className="w-[400px] h-[100px] absolute bg-red-500 bottom-0  right-[20%] z-20"
+        className="w-[400px] h-[100px] opacity-0 absolute bg-red-500 bottom-0  right-[20%] z-20"
       >
         back home
       </button>
