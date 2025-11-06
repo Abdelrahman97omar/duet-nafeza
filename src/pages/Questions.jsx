@@ -27,7 +27,13 @@ const Questions = () => {
 
   return (
     <Timer_layout>
-      <div dir="rtl" className="relative w-full h-screen">
+      <div dir="rtl" className="relative w-full h-screen overflow-hidden">
+        <button
+          onClick={() => navigate("/")}
+          className="w-[400px] h-[100px] absolute bg-red-500 bottom-0  right-[20%] z-20"
+        >
+          back home
+        </button>
         <img
           src={bg}
           alt="hero"

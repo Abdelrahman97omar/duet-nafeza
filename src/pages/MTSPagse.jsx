@@ -8,12 +8,19 @@ const MTSPagse = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen overflow-hidden">
+      <button
+        onClick={() => navigate("/")}
+        className="w-[400px] h-[100px] absolute bg-red-500 bottom-0  right-[20%] z-20"
+      >
+        back home
+      </button>
       <img
         src={bg}
         alt="hero"
         className="object-cover object-center bg-no-repeat"
       />
+
       <div>
         <video
           onEnded={() => {

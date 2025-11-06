@@ -5,19 +5,30 @@ import bg from "../assets/ui/Nafeza app-04.png";
 import backimage from "../assets/ui/Nafeza app-16.png";
 import sound from "../assets/sound/Q1.mp3";
 import Timer_layout from "./timer-provider";
+import { useRosConnection } from "./connection-provider";
 
 const Q1 = () => {
   const navigate = useNavigate();
+  const { publishTopic } = useRosConnection();
+
   const back = () => {
     navigate("/Questions");
   };
   useEffect(() => {
     const audio = new Audio(sound);
     audio.play();
+    publishTopic("/emoji", "std_msgs/Int32", {
+      data: 2,
+    });
+    console.log("emoji 2");
+
     audio.onended = () => {
       navigate("/thankyou");
     };
     return () => {
+      publishTopic("/emoji", "std_msgs/Int32", { data: 1 });
+      console.log("emoji 1");
+
       audio.pause();
       audio.currentTime = 0;
     };
@@ -25,7 +36,13 @@ const Q1 = () => {
 
   return (
     <Timer_layout>
-      <div dir="rtl" className="relative w-full h-screen">
+      <button
+        onClick={() => navigate("/")}
+        className="w-[400px] h-[100px] absolute bg-red-500 bottom-0  right-[20%] z-20"
+      >
+        back home
+      </button>
+      <div dir="rtl" className="relative w-full h-screen overflow-hidden">
         <img
           src={bg}
           alt="hero"

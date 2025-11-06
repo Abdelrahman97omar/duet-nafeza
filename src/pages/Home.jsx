@@ -46,7 +46,7 @@ const Home = () => {
 
   return (
     <div
-      className="relative w-full h-screen"
+      className="relative w-full h-screen overflow-hidden"
       onClick={() => {
         usesInteraction();
       }}

@@ -7,9 +7,12 @@ import askMeImg from "../assets/ui/Nafeza app-10.png";
 import MTSimg from "../assets/ui/Nafeza app-11.png";
 import sound from "../assets/sound/Welcome Message.mp3";
 import btnSound from "../assets/sound/button_sound.mp3";
+import { useRosConnection } from "./connection-provider";
 
 const Options = () => {
   const navigate = useNavigate();
+  const { publishTopic } = useRosConnection();
+
   const audioRef = useRef(null);
   const audioRef2 = useRef(null);
   const handleMTSClick = () => {
@@ -46,18 +49,34 @@ const Options = () => {
   };
   useEffect(() => {
     audioRef2.current.play();
-    return () => {
-      if (!audioRef2.current) return;
-      audioRef2.current.pause();
+    publishTopic("/emoji", "std_msgs/Int32", {
+      data: 2,
+    });
+    console.log("emoji 2");
+  }, []);
 
-      audioRef2.current.currentTime = 0;
+  useEffect(() => {
+    return () => {
+      console.log("emoji 1");
+      publishTopic("/emoji", "std_msgs/Int32", { data: 1 });
+
+      if (audioRef2 && audioRef2.current) {
+        audioRef2.current.pause();
+        audioRef2.current.currentTime = 0;
+      }
     };
   }, []);
   return (
     <Timer_layout>
       <audio src={sound} ref={audioRef2} />
+      <button
+        onClick={() => navigate("/")}
+        className="w-[400px] h-[100px] absolute bg-red-500 bottom-0  right-[20%] z-20"
+      >
+        back home
+      </button>
       <audio src={btnSound} ref={audioRef} />
-      <div dir="rtl" className="relative w-full h-screen">
+      <div dir="rtl" className="relative w-full h-screen overflow-hidden">
         <img
           src={bg}
           alt="hero"
