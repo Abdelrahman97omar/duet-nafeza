@@ -7,6 +7,7 @@ import Q2 from "../assets/ui/Nafeza app-13.png";
 import Q3 from "../assets/ui/Nafeza app-14.png";
 import Q4 from "../assets/ui/Nafeza app-15.png";
 import Timer_layout from "./timer-provider";
+import btnSound from "../assets/sound/button_sound.mp3";
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -24,28 +25,31 @@ const Questions = () => {
     navigate("/Q4");
   };
 
-
   return (
     <Timer_layout>
-        <div dir="rtl" className="relative w-full h-screen">
+      <div dir="rtl" className="relative w-full h-screen">
         <img
           src={bg}
           alt="hero"
           className="object-cover object-center bg-no-repeat"
-        />  
-        <div>
-            <button><img src={Q1} alt="my image" onClick={handleQ1}/></button>
-            <button><img src={Q2} alt="my image" onClick={handleQ2}/></button> 
-            <button><img src={Q3} alt="my image" onClick={handleQ3} /></button>
-            <button><img src={Q4} alt="my image" onClick={handleQ4} /></button>
-
+        />
+        <div className="absolute flex flex-col justify-center items-center top-[20%] left-[8%] ">
+          <button>
+            <img src={Q1} alt="my image" onClick={handleQ1} />
+          </button>
+          <button>
+            <img src={Q2} alt="my image" onClick={handleQ2} />
+          </button>
+          <button>
+            <img src={Q3} alt="my image" onClick={handleQ3} />
+          </button>
+          <button>
+            <img src={Q4} alt="my image" onClick={handleQ4} />
+          </button>
         </div>
-        </div>
+      </div>
     </Timer_layout>
-
   );
 };
 
 export default Questions;
-
-

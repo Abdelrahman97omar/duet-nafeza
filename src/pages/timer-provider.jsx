@@ -8,8 +8,8 @@ function Timer_layout({ children }) {
       clearTimeout(timerRef.current);
     }
     timerRef.current = setTimeout(() => {
-      navigate("/");
-    }, 1000 * 20); // 20 sec
+      navigate("/thankyou");
+    }, 1000 * 30 * 60 * 60); // 20 sec
   }, []);
 
   useEffect(() => {

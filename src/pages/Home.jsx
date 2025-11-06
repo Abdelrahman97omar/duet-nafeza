@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router";
-// import { useRosConnection } from "./connection-provider";
-import { useEffect,useRef } from "react";
+import { useRosConnection } from "./connection-provider";
+import { useEffect, useRef } from "react";
 import bg from "../assets/Home.mp4";
 import homesound from "../assets/sound/home.mp3";
 
 const Home = () => {
-  // const { isConnected, publishTopic } = useRosConnection();
+  const { isConnected, publishTopic } = useRosConnection();
   const navigate = useNavigate();
   const audioRef = useRef(null);
-  
+
   const usesInteraction = () => {
-    // if (isConnected) {
-    //   publishTopic("/user_interaction", "std_msgs/Int32", {
-    //     data: 1,
-    //   });
-    // }
+    if (isConnected) {
+      publishTopic("/user_interaction", "std_msgs/Int32", {
+        data: 1,
+      });
+    }
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -23,19 +23,19 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // if (isConnected) {
-    //   publishTopic("/op_mode", "std_msgs/Int32", {
-    //     data: 1,
-    //   });
-    //   publishTopic("/resume", "std_msgs/Int32", {
-    //     data: 1,
-    //   });
-    //   publishTopic("/user_interaction", "std_msgs/Int32", {
-    //     data: 0,
-    //   });
-    // }
+    if (isConnected) {
+      publishTopic("/op_mode", "std_msgs/Int32", {
+        data: 1,
+      });
+      publishTopic("/resume", "std_msgs/Int32", {
+        data: 1,
+      });
+      publishTopic("/user_interaction", "std_msgs/Int32", {
+        data: 0,
+      });
+    }
     audioRef.current = new Audio(homesound);
-    audioRef.current.play()
+    audioRef.current.play();
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -45,8 +45,12 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen" onClick={() => {usesInteraction();}}>
-      
+    <div
+      className="relative w-full h-screen"
+      onClick={() => {
+        usesInteraction();
+      }}
+    >
       <video
         src={bg}
         autoPlay
@@ -61,5 +65,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

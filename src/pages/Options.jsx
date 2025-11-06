@@ -6,64 +6,67 @@ import smartrobotimg from "../assets/ui/Nafeza app-09.png";
 import askMeImg from "../assets/ui/Nafeza app-10.png";
 import MTSimg from "../assets/ui/Nafeza app-11.png";
 import sound from "../assets/sound/Welcome Message.mp3";
+import btnSound from "../assets/sound/button_sound.mp3";
 
+const Options = () => {
+  const navigate = useNavigate();
+  const audioRef = useRef(null);
 
-const Options= () => {
-    const navigate = useNavigate();
-    const audioRef = useRef(null);
+  const handleMTSClick = () => {
+    audioRef.current.play();
+    setTimeout(() => {
+      navigate("/mtsvideo");
+    }, 500);
+  };
 
-    
-    useEffect(()=>{
-      audioRef.current= new Audio(sound)
-      audioRef.current.play()
+  const handleAskClick = () => {
+    audioRef.current.play();
+    setTimeout(() => {
+      navigate("/Questions");
+    }, 500);
+    console.log("second");
+  };
+  const handleRobotClick = () => {
+    audioRef.current.play();
+    setTimeout(() => {
+      navigate("/smartrobotvideo");
+    }, 500);
+    console.log("Third");
+  };
+  useEffect(() => {
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
+      if (!audioRef.current) return;
+      // audioRef.current.currentTime = 0;
     };
   }, []);
+  return (
+    <Timer_layout>
+      <audio src={btnSound} ref={audioRef} />
+      <div dir="rtl" className="relative w-full h-screen">
+        <img
+          src={bg}
+          alt="hero"
+          className="object-cover object-center bg-no-repeat"
+        />
+        {/* <div className="flex flex-col md:flex-row gap-8 mt-12"> */}
+        <div className="absolute top-[20%] left-[12%] flex flex-col md:flex-row items-center justify-center gap-8">
+          <button>
+            <img
+              src={smartrobotimg}
+              alt="my image"
+              onClick={handleRobotClick}
+            />
+          </button>
+          <button>
+            <img src={askMeImg} alt="my image" onClick={handleAskClick} />
+          </button>
+          <button>
+            <img src={MTSimg} alt="my image" onClick={handleMTSClick} />
+          </button>
+        </div>
+      </div>
+    </Timer_layout>
+  );
+};
 
-    const handleMTSClick = () => {
-        // console.log("first")
-        if (audioRef.current) {
-          audioRef.current.pause();
-          audioRef.current.currentTime = 0;
-        }
-        navigate("/mtsvideo");}
-
-        const handleAskClick = () => 
-        {
-          if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0;
-            }
-        navigate("/Questions");
-        console.log("second")
-        }
-    const handleRobotClick = () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
-        navigate("/smartrobotvideo");
-        console.log("Third")    
-    }
-  
-return (
-        <Timer_layout>
-          <div dir="rtl" className="relative w-full h-screen">
-          <img src={bg} alt="hero" className="object-cover object-center bg-no-repeat"/>
-            {/* <div className="flex flex-col md:flex-row gap-8 mt-12"> */}
-            <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8">
-              <button><img src={smartrobotimg} alt="my image" onClick={handleRobotClick} /></button>
-              <button><img src={askMeImg} alt="my image" onClick={handleAskClick} /></button> 
-              <button><img src={MTSimg} alt="my image" onClick={handleMTSClick} /></button>
-            </div>
-          </div>
-        </Timer_layout>
-    
-        );
-        };
-
-    export default Options
+export default Options;
