@@ -11,36 +11,51 @@ import btnSound from "../assets/sound/button_sound.mp3";
 const Options = () => {
   const navigate = useNavigate();
   const audioRef = useRef(null);
-
+  const audioRef2 = useRef(null);
   const handleMTSClick = () => {
-    audioRef.current.play();
+    audioRef2.current.pause();
+
+    setTimeout(() => {
+      audioRef.current.play();
+    }, 100);
     setTimeout(() => {
       navigate("/mtsvideo");
     }, 500);
   };
 
   const handleAskClick = () => {
-    audioRef.current.play();
+    audioRef2.current.pause();
+
+    setTimeout(() => {
+      audioRef.current.play();
+    }, 100);
     setTimeout(() => {
       navigate("/Questions");
     }, 500);
     console.log("second");
   };
   const handleRobotClick = () => {
-    audioRef.current.play();
+    audioRef2.current.pause();
+    setTimeout(() => {
+      audioRef.current.play();
+    }, 100);
     setTimeout(() => {
       navigate("/smartrobotvideo");
     }, 500);
     console.log("Third");
   };
   useEffect(() => {
+    audioRef2.current.play();
     return () => {
-      if (!audioRef.current) return;
-      // audioRef.current.currentTime = 0;
+      if (!audioRef2.current) return;
+      audioRef2.current.pause();
+
+      audioRef2.current.currentTime = 0;
     };
   }, []);
   return (
     <Timer_layout>
+      <audio src={sound} ref={audioRef2} />
       <audio src={btnSound} ref={audioRef} />
       <div dir="rtl" className="relative w-full h-screen">
         <img
